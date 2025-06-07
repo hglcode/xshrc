@@ -86,4 +86,4 @@ C_HOSTNAME_E=$(printf '%b' '\e[38;5;196m')
 
 export PS1='$(__sh_gen_prompt)'
 export C_UNDRLIN C_DIVIDER C_DEFAULT C_HOSTNAME C_WORK_DIR C_GIT_BRCH C_USERNAME
-export C_HOSTNAME_E HOSTNAME
+export C_HOSTNAME_E
