@@ -1,12 +1,7 @@
 #!/bin/sh
 
-[[ $- != *i* ]] && exit 0
-[[ "$(tty)" == "/dev/tty1" && -z $DISPLAY && "$USER" == "l" ]] && startplasma-wayland 2>/dev/null && exit 0
-
 self=$(realpath "$0")
 here=$(dirname "$self")
-home=$(realpath "$HOME")
-[ "$here" = "$home" ] || here=~/.xshrc
 
 # shellcheck disable=SC1090
 # shellcheck disable=SC1091

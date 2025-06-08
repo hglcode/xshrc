@@ -1,24 +1,28 @@
 #!/bin/sh
 
-echo "$-" | grep -P '.*i.*' || exit 0
-[ "$(tty)" = "/dev/tty1" ] && [ -n "$DISPLAY" ] && [ "$(id -u -n)" = "l" ] && startplasma-wayland 2>/dev/null && exit 0
-
 # shellcheck disable=SC1090
 self=$(realpath "$0")
 here=$(dirname "$self")
-home=$(realpath "$HOME")
-[ "$here" = "$home" ] || here=~/.xshrc
+
+# shellcheck disable=SC1091
 [ -f "$here/shrc.sh" ] && . "$here/shrc.sh"
 
 __init_ohmyzsh() {
     unfunction __init_ohmyzsh
     [ -d "$HOME/.oh-my-zsh" ] || return 1
+    # shellcheck disable=SC3030
+    # shellcheck disable=SC2034
     plugins=(git pip zsh-autosuggestions zsh-syntax-highlighting docker docker-compose)
-    CASE_SENSITIVE="true"
+
+    # shellcheck disable=SC2034
     ENABLE_CORRECTION="true"
+    # shellcheck disable=SC2034
     DISABLE_AUTO_TITLE="true"
+    # shellcheck disable=SC2034
+    CASE_SENSITIVE="true"
     ZSH="$HOME/.oh-my-zsh"
-    . "$ZSH/oh-my-zsh.sh" || return 1
+    # shellcheck disable=SC1091
+    [ -f "$ZSH/oh-my-zsh.sh" ] && . "$ZSH/oh-my-zsh.sh" || return 1
     export ZSH
     export C_UNDRLIN="%{$C_UNDRLIN%}"
     export C_DIVIDER="%{$C_DIVIDER%}"
@@ -35,6 +39,7 @@ __init_ohmyzsh() {
 
 __zsh_bindkey() {
     unfunction __zsh_bindkey
+    # shellcheck disable=SC1001
     stty intr \^x
     bindkey -e
     bindkey '\e[1;5A' forward-history

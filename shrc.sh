@@ -1,5 +1,8 @@
 #!/bin/sh
 
+echo "$-" | grep -qP '.*i.*' || exit 0
+[ "$(tty)" = "/dev/tty1" ] && [ -n "$DISPLAY" ] && [ "$(id -u -n)" = "l" ] && startplasma-wayland 2>/dev/null && exit 0
+
 self=$(realpath "$0")
 here=$(dirname "$self")
 home=$(realpath "$HOME")
@@ -35,6 +38,7 @@ __sh_conda_setup() {
 
 __sh_gen_prompt() {
     (
+        # shellcheck disable=SC2181
         [ $? = 0 ] && ch=$C_HOSTNAME || ch=$C_HOSTNAME_E
         sh=$(__f_shell)
         ur=$(whoami 2>/dev/null || id -u -n 2>/dev/null || echo unknown)
