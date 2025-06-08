@@ -3,14 +3,12 @@
 echo "$-" | grep -qP '.*i.*' || exit 0
 [ "$(tty)" = "/dev/tty1" ] && [ -n "$DISPLAY" ] && [ "$(id -u -n)" = "l" ] && startplasma-wayland 2>/dev/null && exit 0
 
-self=$(realpath "$0")
-here=$(dirname "$self")
-home=$(realpath "$HOME")
-[ "$here" = "$home" ] || here=~/.xshrc
 # shellcheck disable=SC1091
-[ -f "$here/tools.sh" ] && . "$here/tools.sh"
+# shellcheck disable=SC1090
+[ -f ~/.xshrc/tools.sh ] && . ~/.xshrc/tools.sh
 # shellcheck disable=SC1091
-[ -f "$here/alias.sh" ] && . "$here/alias.sh"
+# shellcheck disable=SC1090
+[ -f ~/.xshrc/alias.sh ] && . ~/.xshrc/alias.sh
 
 __sh_history() {
     unfunction __sh_history >/dev/null 2>&1 || unset __sh_history

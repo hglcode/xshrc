@@ -1,11 +1,8 @@
 #!/bin/sh
 
-self=$(realpath "$0")
-here=$(dirname "$self")
-
 # shellcheck disable=SC1090
 # shellcheck disable=SC1091
-[ -f "$here/shrc.sh" ] && . "$here/shrc.sh"
+[ -f ~/.xshrc/shrc.sh ] && . ~/.xshrc/shrc.sh
 
 # Configure bash history
 __sh_history ~/.bash_history

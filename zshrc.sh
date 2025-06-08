@@ -1,11 +1,8 @@
 #!/bin/sh
 
-# shellcheck disable=SC1090
-self=$(realpath "$0")
-here=$(dirname "$self")
-
 # shellcheck disable=SC1091
-[ -f "$here/shrc.sh" ] && . "$here/shrc.sh"
+# shellcheck disable=SC1090
+[ -f ~/.xshrc/shrc.sh ] && . ~/.xshrc/shrc.sh
 
 __init_ohmyzsh() {
     unfunction __init_ohmyzsh
