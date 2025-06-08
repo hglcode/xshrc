@@ -7,10 +7,10 @@ self=$(realpath "$0")
 here=$(dirname "$self")
 home=$(realpath "$HOME")
 [ "$here" = "$home" ] || here=~/.xshrc
-echo "here = $here $*"
+
 # shellcheck disable=SC1090
 # shellcheck disable=SC1091
-[ -f "$here/.shrc" ] && . "$here/.shrc"
+[ -f "$here/shrc.sh" ] && . "$here/shrc.sh"
 
 # Configure bash history
 __sh_history ~/.bash_history
