@@ -1,7 +1,7 @@
-#!/bin/zsh
+#!/bin/sh
 
-[[ $- != *i* ]] && exit 0
-[[ "$(tty)" == "/dev/tty1" && -z $DISPLAY && "$USER" == "l" ]] && startplasma-wayland 2>/dev/null && exit 0
+echo "$-" | grep -P '.*i.*' || exit 0
+[ "$(tty)" = "/dev/tty1" ] && [ -n "$DISPLAY" ] && [ "$(id -u -n)" = "l" ] && startplasma-wayland 2>/dev/null && exit 0
 
 # shellcheck disable=SC1090
 self=$(realpath "$0")
@@ -18,7 +18,7 @@ __init_ohmyzsh() {
     ENABLE_CORRECTION="true"
     DISABLE_AUTO_TITLE="true"
     ZSH="$HOME/.oh-my-zsh"
-    . $ZSH/oh-my-zsh.sh || return 1
+    . "$ZSH/oh-my-zsh.sh" || return 1
     export ZSH
     export C_UNDRLIN="%{$C_UNDRLIN%}"
     export C_DIVIDER="%{$C_DIVIDER%}"

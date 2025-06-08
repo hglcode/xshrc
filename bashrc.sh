@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [[ $- != *i* ]] && exit 0
 [[ "$(tty)" == "/dev/tty1" && -z $DISPLAY && "$USER" == "l" ]] && startplasma-wayland 2>/dev/null && exit 0
