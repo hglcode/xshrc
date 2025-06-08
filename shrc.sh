@@ -37,8 +37,8 @@ __sh_gen_prompt() {
     (
         [ $? = 0 ] && ch=$C_HOSTNAME || ch=$C_HOSTNAME_E
         sh=$(__f_shell)
-        ur=$(whoami)
-        hn=$(hostname)
+        ur=$(whoami 2>/dev/null || id -u -n 2>/dev/null || echo unknown)
+        hn=$HOSTNAME
         wd=$(__f_work_directory)
         cp=$(printf "%s" "$CONDA_PROMPT_MODIFIER" | xargs)
         glb=$(__f_git_local_branchs)
@@ -46,6 +46,7 @@ __sh_gen_prompt() {
         gb=$(__f_git_branch)
 
         ps="$sh $ur@$hn $wd $cp $gb $glb $grb"
+        #ps="$sh $ur@$hn $wd"
         ps=$(echo "$ps" | xargs)
         pc=${#ps}
 
@@ -84,6 +85,7 @@ C_GIT_BRCH_R=$(printf '%b' '\033[38;5;147m')
 C_USERNAME=$(printf '%b' '\e[38;5;51m')
 C_HOSTNAME_E=$(printf '%b' '\e[38;5;196m')
 
+HOSTNAME=$(hostname 2>/dev/null || cat /etc/hostname 2>/dev/null || echo unknown)
 export PS1='$(__sh_gen_prompt)'
-export C_UNDRLIN C_DIVIDER C_DEFAULT C_HOSTNAME C_WORK_DIR C_GIT_BRCH C_USERNAME
-export C_HOSTNAME_E
+export PROMPT=$PS1
+export C_UNDRLIN C_DIVIDER C_DEFAULT C_HOSTNAME C_WORK_DIR C_GIT_BRCH C_USERNAME C_HOSTNAME_E HOSTNAME
