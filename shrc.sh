@@ -76,6 +76,27 @@ __sh_gen_prompt() {
     )
 }
 
+__sh_get_app_paths() {
+    (
+        set -e
+        home=$HOME/.local/app
+        [ -d "$home" ] || home=$(dirname "$0")./local/app
+        [ -d "$home" ] || return 1
+        envs_cache="$home/.app_envs_$(date '+%Y%m%d').cache"
+        [ -f "$envs_cache" ] && cat "$envs_cache" && return 0
+
+        rm -f "$home/home/.app_envs_*.cache" >/dev/null 2>&1
+        paths=''
+        for d in "$home"/*; do
+            [ -d "$d/bin" ] && d="$d/bin"
+            __f_in_env_path "$d" || paths="$paths:$d"
+        done
+        [ -z "$paths" ] && return 1
+        paths=$(echo "$paths" | cut -c2-)
+        printf "%s" "$paths" | tee "$envs_cache" || rm -f "$envs_cache"
+    )
+}
+
 __sh_conda_setup
 
 C_UNDRLIN=$(printf '%b' '\e[4m')
@@ -90,6 +111,10 @@ C_USERNAME=$(printf '%b' '\e[38;5;51m')
 C_HOSTNAME_E=$(printf '%b' '\e[38;5;196m')
 
 HOSTNAME=$(hostname 2>/dev/null || cat /etc/hostname 2>/dev/null || echo unknown)
+PATH="$(__sh_get_app_paths):$PATH"
+PATH=$(echo "$PATH" | sed -r 's@^\s*[:]+|[:]+\s*$@@g' | sed -r 's|[:]+|:|g')
+
 export PS1='$(__sh_gen_prompt)'
 export PROMPT=$PS1
 export C_UNDRLIN C_DIVIDER C_DEFAULT C_HOSTNAME C_WORK_DIR C_GIT_BRCH C_USERNAME C_HOSTNAME_E HOSTNAME
+export PATH
