@@ -37,11 +37,11 @@ __f_get_app_paths() {
 }
 
 __f_git_branch() {
-    git branch --sort=-committerdate 2>/dev/null | grep -iP '^\s*\*\s+(\w+|\(.*\))\s*$' | head -n1 | awk '{print $1$NF}' | sed 's|)$||'
+    git branch 2>/dev/null | grep -iP '^\s*\*\s+(\w+|\(.*\))\s*$' | head -n1 | awk '{print $1$NF}' | sed 's|)$||'
 }
 
 __f_git_local_branchs() {
-    git branch 2>/dev/null | grep -iP '^\s*\w+\s*$' | xargs
+    git branch --sort=-committerdate 2>/dev/null | grep -iP '^\s*\w+\s*$' | xargs
 }
 
 __f_git_remote_branchs() {
