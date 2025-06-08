@@ -37,7 +37,7 @@ __f_get_app_paths() {
 }
 
 __f_git_branch() {
-    git branch 2>/dev/null | grep -iP '^\s*\*\s+(\w+|\(.*\))\s*$' | head -n1 | awk '{print $1$NF}' | sed 's|)$||'
+    git branch --sort=-committerdate 2>/dev/null | grep -iP '^\s*\*\s+(\w+|\(.*\))\s*$' | head -n1 | awk '{print $1$NF}' | sed 's|)$||'
 }
 
 __f_git_local_branchs() {
@@ -45,7 +45,7 @@ __f_git_local_branchs() {
 }
 
 __f_git_remote_branchs() {
-    git branch -r 2>/dev/null | grep -P '^\s*origin/[\S]+\s*$' | xargs
+    git branch -r --sort=-committerdate 2>/dev/null | grep -P '^\s*origin/[\S]+\s*$' | head -n9 | xargs
 }
 
 __f_tty_columns() {
