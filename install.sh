@@ -11,8 +11,7 @@
     # shellcheck disable=SC1091
     . "$here/tools.sh"
 
-    mkdir -pv ~/.xshrc/
-    cp -rv "$here"/*.sh ~/.xshrc/
+    [ "$(realpath ~/.xshrc)" != "$here" ] && mkdir -pv ~/.xshrc/ && cp -rv "$here"/*.sh ~/.xshrc/
     sh=$(__f_shell)
     rewrite_rc "[ -f ~/.xshrc/${sh}rc.sh ] && . ~/.xshrc/${sh}rc.sh" ~/".${sh}rc"
     echo "[ -f ~/.xshrc/${sh}rc.sh ] && . ~/.xshrc/${sh}rc.sh >> ~/.${sh}rc"

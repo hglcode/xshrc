@@ -1,13 +1,5 @@
 #!/bin/sh
 
-# shellcheck disable=SC1091
-self=$(realpath "$0")
-here=$(dirname "$self")
-home=$(realpath "$HOME")
-[ "$here" = "$home" ] || here=~/.xshrc
-# shellcheck disable=SC1090
-[ -f "$here/tools.sh" ] && . "$here/tools.sh"
-
 # data
 export DATA_HOME=~/.data/data
 export DATA_FUTURE_HOME=$DATA_HOME/future
@@ -29,5 +21,3 @@ export MAN_DISABLE_SECCOMP=1
 
 # docker
 export DOCKER_BUILDKIT=1
-
-paths=$(__f_get_app_paths) && [ -n "$paths" ] && export PATH="$paths:$PATH"

@@ -15,27 +15,6 @@ __f_in_env_path() {
     )
 }
 
-__f_get_app_paths() {
-    (
-        set -e
-        home=$HOME/.local/app
-        [ -d "$home" ] || home=$(dirname "$0")./local/app
-        [ -d "$home" ] || return 1
-        envs_cache="$home/.app_envs_$(date '+%Y%m%d').cache"
-        [ -f "$envs_cache" ] && cat "$envs_cache" && return 0
-
-        rm -f "$home/home/.app_envs_*.cache" >/dev/null 2>&1
-        paths=''
-        for d in "$home"/*; do
-            [ -d "$d/bin" ] && d="$d/bin"
-            __f_in_env_path "$d" || paths="$paths:$d"
-        done
-        [ -z "$paths" ] && return 1
-        paths=$(echo "$paths" | cut -c2-)
-        printf "%s" "$paths" | tee "$envs_cache" || rm -f "$envs_cache"
-    )
-}
-
 __f_git_branch() {
     git branch 2>/dev/null | grep -iP '^\s*\*\s+(\w+|\(.*\))\s*$' | head -n1 | awk '{print $1$NF}' | sed 's|)$||'
 }
