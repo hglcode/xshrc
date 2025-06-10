@@ -5,6 +5,9 @@ echo "$-" | grep -qP '.*i.*' || exit 0
 
 # shellcheck disable=SC1091
 # shellcheck disable=SC1090
+[ -f ~/.xshrc/env.sh ] && . ~/.xshrc/env.sh
+# shellcheck disable=SC1091
+# shellcheck disable=SC1090
 [ -f ~/.xshrc/tools.sh ] && . ~/.xshrc/tools.sh
 # shellcheck disable=SC1091
 # shellcheck disable=SC1090
