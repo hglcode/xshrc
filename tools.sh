@@ -24,7 +24,7 @@ __f_git_local_branchs() {
 }
 
 __f_git_remote_branchs() {
-    git branch -r --sort=-committerdate 2>/dev/null | grep -P '^\s*origin/[\S]+\s*$' | head -n9 | xargs
+    git branch -r --sort=-committerdate 2>/dev/null | grep -P '^\s*origin/[\S]+\s*$' | xargs
 }
 
 __f_tty_columns() {
@@ -44,5 +44,5 @@ __f_divider() {
 }
 
 __f_nslookup() {
-    /bin/ping -c 1 -w 0 "$1" | head -n1 | grep -oP '(?<=\().*?(?=\))' | head -n1
+    ping -c 1 -w 0 "$1" | grep -P "\b$1\b" | grep -oP "(?<=\().*?(?=\))" | head -n1
 }
