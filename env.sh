@@ -15,9 +15,3 @@ export GOPATH=~/.local/app/go
 
 # ruby
 export PATH=~/bin:"$PATH"
-
-# disable seccomp for manual
-export MAN_DISABLE_SECCOMP=1
-
-# docker
-export DOCKER_BUILDKIT=1
