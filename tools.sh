@@ -44,5 +44,5 @@ __f_divider() {
 }
 
 __f_nslookup() {
-    /bin/ping -c 1 -w 0 "$1" | head -n1 | grep -oP '(?<=\().*?(?=\))' | head -n1
+    ping -c 1 -w 0 "$1" | grep -P "\b$1\b" | grep -oP "(?<=\().*?(?=\))" | head -n1
 }

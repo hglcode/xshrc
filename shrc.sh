@@ -42,7 +42,7 @@ __sh_gen_prompt() {
         # shellcheck disable=SC2181
         [ $? = 0 ] && ch=$C_HOSTNAME || ch=$C_HOSTNAME_E
         sh=$(__f_shell)
-        ur=$(whoami 2>/dev/null || id -u -n 2>/dev/null || echo unknown)
+        ur=$(whoami 2>/dev/null || id -un 2>/dev/null || echo unknown)
         hn=$HOSTNAME
         wd=$(__f_work_directory)
         cp=$(printf "%s" "$CONDA_PROMPT_MODIFIER" | xargs)
@@ -113,7 +113,7 @@ C_HOSTNAME_E=$(printf '%b' '\e[38;5;196m')
 
 HOSTNAME=$(hostname 2>/dev/null || cat /etc/hostname 2>/dev/null || echo unknown)
 PATH="$(__sh_get_app_paths):$PATH"
-PATH=$(echo "$PATH" | sed -r 's@^\s*[:]+|[:]+\s*$@@g' | sed -r 's|[:]+|:|g')
+PATH=$(echo "$PATH" | sed -r -e 's@^\s*[:]+|[:]+\s*$@@g' -e 's|[:]{2,}|:|g')
 
 export PS1='$(__sh_gen_prompt)'
 export PROMPT=$PS1
