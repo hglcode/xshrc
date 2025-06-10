@@ -50,12 +50,34 @@ __sh_gen_prompt() {
         grb=$(__f_git_remote_branchs)
         gb=$(__f_git_branch)
 
-        ps="$sh $ur@$hn $wd $cp $gb $glb $grb"
-        #ps="$sh $ur@$hn $wd"
+        #ps="$sh $ur@$hn $wd $cp $gb $glb $grb"
+        ps="$sh $ur@$hn $wd $cp $gb"
         ps=$(echo "$ps" | xargs)
         pc=${#ps}
-
         cc=$(__f_tty_columns)
+        ts=$glb
+        glb=''
+        while true; do
+            t="${ts%% *}"
+            ts="${ts#* }"
+            nc=$((pc + ${#t} + 1))
+            [ "$nc" -le "$cc" ] || break
+            glb="$glb $t"
+            pc=$nc
+            [ "$t" = "$ts" ] && break
+        done
+        ts=$grb
+        grb=''
+        while true; do
+            t="${ts%% *}"
+            ts="${ts#* }"
+            nc=$((pc + ${#t} + 1))
+            [ "$nc" -le "$cc" ] || break
+            grb="$grb $t"
+            pc=$nc
+            [ "$t" = "$ts" ] && break
+        done
+
         c1=0 # $(((cc - pc) / 2))
         c2=$((cc - c1 - pc))
         d1=$C_DIVIDER$(__f_divider "$c1")
@@ -68,8 +90,8 @@ __sh_gen_prompt() {
 
         [ -n "$cp" ] && cp="${C_DIVIDER} ${C_DEFAULT}${C_UNDRLIN}${cp}"
         [ -n "$gb" ] && gb="${C_DIVIDER} ${C_GIT_BRCH}${gb}"
-        [ -n "$glb" ] && glb="${C_DIVIDER} ${C_GIT_BRCH_L}${glb}"
-        [ -n "$grb" ] && grb="${C_DIVIDER} ${C_GIT_BRCH_R}${grb}"
+        [ -n "$glb" ] && glb="${C_DIVIDER}${C_GIT_BRCH_L}${glb}"
+        [ -n "$grb" ] && grb="${C_DIVIDER}${C_GIT_BRCH_R}${grb}"
 
         ps="$d1$sh $ur@$hn $wd$cp$gb$glb$grb$d2$C_DEFAULT"
 

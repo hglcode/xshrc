@@ -24,7 +24,7 @@ __f_git_local_branchs() {
 }
 
 __f_git_remote_branchs() {
-    git branch -r --sort=-committerdate 2>/dev/null | grep -P '^\s*origin/[\S]+\s*$' | head -n9 | xargs
+    git branch -r --sort=-committerdate 2>/dev/null | grep -P '^\s*origin/[\S]+\s*$' | xargs
 }
 
 __f_tty_columns() {
