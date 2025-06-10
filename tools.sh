@@ -36,7 +36,7 @@ __f_work_directory() {
 }
 
 __f_shell() {
-    basename "$(ps -p $$ | tail -n 1 | awk '{print $NF}')"
+    ps -p $$ | tail -n 1 | grep -oP '[a-z]+\s*$' 2>/dev/null
 }
 
 __f_divider() {
