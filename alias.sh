@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 np=$(nproc)
 lnp=$((np + 1))
