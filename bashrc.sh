@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 # shellcheck disable=SC1090
 # shellcheck disable=SC1091

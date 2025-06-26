@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 (
     rewrite_rc() {
         cx=$1

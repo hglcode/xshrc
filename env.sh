@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 # data
 export DATA_HOME=~/.data/data

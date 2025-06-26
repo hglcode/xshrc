@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 __f_in_env_path() {
     (

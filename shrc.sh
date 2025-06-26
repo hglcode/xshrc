@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 
 echo "$-" | grep -qP '.*i.*' || exit 0
 [ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ] && [ "$(id -u -n)" = "l" ] && startplasma-wayland 2>/dev/null && exit 0
