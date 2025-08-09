@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 # data
-export DATA_HOME=~/.data/data
+export DATA_HOME=/media/data/data
 export DATA_FUTURE_HOME=$DATA_HOME/future
 
 # pnpm
