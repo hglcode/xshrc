@@ -108,7 +108,7 @@ __sh_get_app_paths() {
         envs_cache="$home/.app_envs_$(date '+%Y%m%d').cache"
         [ -f "$envs_cache" ] && cat "$envs_cache" && return 0
 
-        rm -f "$home/home/.app_envs_*.cache" >/dev/null 2>&1
+        rm -f "$home/.app_envs_*.cache" >/dev/null 2>&1
         paths=''
         for d in "$home"/*; do
             [ -d "$d/bin" ] && d="$d/bin"
