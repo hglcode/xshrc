@@ -45,7 +45,7 @@ __sh_gen_prompt() {
         ur=$(whoami 2>/dev/null || id -un 2>/dev/null || echo unknown)
         hn=$HOSTNAME
         wd=$(__f_work_directory)
-        cp=$(printf "%s" "$CONDA_PROMPT_MODIFIER" | xargs)
+        [ -n "$CONDA_DEFAULT_ENV" ] && cp=$(printf "%s" "($CONDA_DEFAULT_ENV)" | xargs)
         glb=$(__f_git_local_branchs)
         grb=$(__f_git_remote_branchs)
         gb=$(__f_git_branch)
@@ -120,7 +120,7 @@ __sh_get_app_paths() {
     )
 }
 
-__sh_conda_setup
+__sh_conda_setup && conda deactivate > /dev/null
 
 C_UNDRLIN=$(printf '%b' '\e[4m')
 C_DEFAULT=$(printf '%b' '\e[0m')
