@@ -38,11 +38,12 @@ __zsh_bindkey() {
     unfunction __zsh_bindkey
     # shellcheck disable=SC1001
     stty intr \^x
-    bindkey -e
-    bindkey '\e[1;5A' forward-history
-    bindkey '\e[1;5B' backward-history
-    bindkey '\e[1;5C' forward-word
-    bindkey '\e[1;5D' backward-word
+    bindkey -e                      \
+        '\e[1;5A' forward-history   \
+        '\e[1;5B' backward-history  \
+        '\e[1;5C' forward-word      \
+        '\e[1;5D' backward-word     \
+        '^H' backward-kill-word
 }
 
 __zsh_history() {
