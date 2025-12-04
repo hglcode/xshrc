@@ -29,6 +29,7 @@ __sh_conda_setup() {
     unfunction __sh_conda_setup >/dev/null 2>&1 || unset __sh_conda_setup
     sh=shell.$(__f_shell)
     home=~/.local/app/conda
+    [ -d "$home" ] || home=/media/work/.app/conda
     [ -d "$home" ] || return 1
     setup=$("$home/bin/conda" "$sh" hook 2>/dev/null) && [ -n "$setup" ] && eval "$setup" && return 0
     # shellcheck disable=SC1091
@@ -104,11 +105,11 @@ __sh_get_app_paths() {
         set -e
         home=$HOME/.local/app
         [ -d "$home" ] || home=$(dirname "$0")./local/app
+        [ -d "$home" ] || home=/media/work/.app
         [ -d "$home" ] || return 1
-        envs_cache="$home/.app_envs_$(date '+%Y%m%d').cache"
-        [ -f "$envs_cache" ] && cat "$envs_cache" && return 0
-
-        rm -f "$home/.app_envs_*.cache" >/dev/null 2>&1
+        boot_ts=$(date -d "$(uptime -s)" +%s)
+        cache="/tmp/.app_envs_${boot_ts}.cache"
+        [ -f "$cache" ] && cat "$cache" && return 0
         paths=''
         for d in "$home"/*; do
             [ -d "$d/bin" ] && d="$d/bin"
@@ -116,7 +117,7 @@ __sh_get_app_paths() {
         done
         [ -z "$paths" ] && return 1
         paths=$(echo "$paths" | cut -c2-)
-        printf "%s" "$paths" | tee "$envs_cache" || rm -f "$envs_cache"
+        printf "%s" "$paths" | tee "$cache" || rm -f "$cache"
     )
 }
 
@@ -134,8 +135,13 @@ C_USERNAME=$(printf '%b' '\e[38;5;51m')
 C_HOSTNAME_E=$(printf '%b' '\e[38;5;196m')
 
 HOSTNAME=$(hostname 2>/dev/null || cat /etc/hostname 2>/dev/null || echo unknown)
-PATH="$(__sh_get_app_paths):$PATH"
+PATH="$PATH:$(__sh_get_app_paths)"
 PATH=$(echo "$PATH" | sed -r -e 's@^\s*[:]+|[:]+\s*$@@g' -e 's|[:]{2,}|:|g')
+
+if [ -n "$ZSH_VERSION" ]; then
+    autoload -U colors && colors
+    setopt prompt_subst
+fi
 
 export PS1='$(__sh_gen_prompt)'
 export PROMPT=$PS1
