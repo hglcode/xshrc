@@ -9,7 +9,7 @@ __init_ohmyzsh() {
     [ -d "$HOME/.oh-my-zsh" ] || return 1
     # shellcheck disable=SC3030
     # shellcheck disable=SC2034
-    plugins=(git pip zsh-autosuggestions zsh-syntax-highlighting docker docker-compose)
+    plugins=(git pip conda zsh-autosuggestions zsh-syntax-highlighting docker docker-compose)
 
     # shellcheck disable=SC2034
     ENABLE_CORRECTION="true"
@@ -21,16 +21,6 @@ __init_ohmyzsh() {
     # shellcheck disable=SC1091
     [ -f "$ZSH/oh-my-zsh.sh" ] && . "$ZSH/oh-my-zsh.sh" || return 1
     export ZSH
-    export C_UNDRLIN="%{$C_UNDRLIN%}"
-    export C_DIVIDER="%{$C_DIVIDER%}"
-    export C_DEFAULT="%{$C_DEFAULT%}"
-    export C_HOSTNAME="%{$C_HOSTNAME%}"
-    export C_WORK_DIR="%{$C_WORK_DIR%}"
-    export C_GIT_BRCH="%{$C_GIT_BRCH%}"
-    export C_GIT_BRCH_L="%{$C_GIT_BRCH_L%}"
-    export C_GIT_BRCH_R="%{$C_GIT_BRCH_R%}"
-    export C_USERNAME="%{$C_USERNAME%}"
-    export C_HOSTNAME_E="%{$C_HOSTNAME_E%}"
     return 0
 }
 
@@ -38,11 +28,12 @@ __zsh_bindkey() {
     unfunction __zsh_bindkey
     # shellcheck disable=SC1001
     stty intr \^x
-    bindkey -e
-    bindkey '\e[1;5A' forward-history
-    bindkey '\e[1;5B' backward-history
-    bindkey '\e[1;5C' forward-word
-    bindkey '\e[1;5D' backward-word
+    bindkey -e                      \
+        '\e[1;5A' forward-history   \
+        '\e[1;5B' backward-history  \
+        '\e[1;5C' forward-word      \
+        '\e[1;5D' backward-word     \
+        '^H' backward-kill-word
 }
 
 __zsh_history() {
