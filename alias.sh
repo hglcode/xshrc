@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 
 np=$(nproc)
-lnp=$((np + 1))
+lnp=$((np * 2))
 wnp=$((np * 3))
 
 alias ls='ls --color=auto'
@@ -16,7 +16,7 @@ alias cls='clear'
 alias du='du -ahd1'
 alias df='df -h'
 # shellcheck disable=SC2139
-alias dl="aria2c -c -x16 -j$wnp"
+alias dl="aria2c -c -V -k1M -s$lnp -x16 -j$wnp --max-tries=3 --retry-wait=5"
 alias grep='grep --color=auto'
 alias ping='ping -c 3'
 # shellcheck disable=SC2139
