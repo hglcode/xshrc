@@ -27,15 +27,13 @@ __sh_history() {
 
 __sh_conda_setup() {
     unfunction __sh_conda_setup >/dev/null 2>&1 || unset __sh_conda_setup
-    sh=shell.$(__f_shell)
-    home=~/.local/app/conda
-    [ -d "$home" ] || home=/media/work/.app/conda
-    [ -d "$home" ] || return 1
-    setup=$("$home/bin/conda" "$sh" hook 2>/dev/null) && [ -n "$setup" ] && eval "$setup" && return 0
-    # shellcheck disable=SC1091
-    [ -f "$home/etc/profile.d/conda.sh" ] && . "$home/etc/profile.d/conda.sh" && return 0
-    __f_in_env_path "$home/bin" || export PATH="$home/bin:$PATH"
-    return 0
+    home=/media/work/.app/miniforge/bin
+    sh=$(__f_shell)
+    conda="$home/conda"
+    mamba="$home/mamba"
+    [ -x "$conda" ] && setup=$("$conda" "shell.$sh" hook 2>/dev/null) && [ -n "$setup" ] && eval "$setup"
+    [ -x "$mamba" ] && setup=$("$mamba" shell hook --shell "$sh") && [ -n "$setup" ] && eval "$setup"
+    unset home sh condaa mamba
 }
 
 __sh_gen_prompt() {
