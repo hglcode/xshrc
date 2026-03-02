@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 # shellcheck disable=SC1091
 # shellcheck disable=SC1090
@@ -9,7 +9,7 @@ __init_ohmyzsh() {
     [ -d "$HOME/.oh-my-zsh" ] || return 1
     # shellcheck disable=SC3030
     # shellcheck disable=SC2034
-    plugins=(git pip conda zsh-autosuggestions zsh-syntax-highlighting docker docker-compose)
+    plugins=(git pip conda zsh-autosuggestions zsh-syntax-highlighting podman docker docker-compose)
 
     # shellcheck disable=SC2034
     ENABLE_CORRECTION="true"

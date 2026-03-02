@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 np=$(nproc)
 lnp=$((np * 2))
@@ -31,3 +31,6 @@ alias laptop='ssh laptop'
 
 alias nslookup=__f_nslookup
 alias wifi='echo 0 | sudo -S systemctl restart hostapd.service'
+
+# --compatibility
+alias docker-compose='docker compose'
