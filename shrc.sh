@@ -34,7 +34,7 @@ __sh_conda_setup() {
     mamba="$home/mamba"
     [ -x "$conda" ] && setup=$("$conda" "shell.$sh" hook 2>/dev/null) && [ -n "$setup" ] && eval "$setup"
     [ -x "$mamba" ] && setup=$("$mamba" shell hook --shell "$sh") && [ -n "$setup" ] && eval "$setup"
-    unset home sh condaa mamba
+    unset home sh conda mamba
 }
 
 __sh_gen_prompt() {
@@ -120,7 +120,7 @@ __sh_get_app_paths() {
     )
 }
 
-__sh_conda_setup && conda deactivate > /dev/null
+__sh_conda_setup
 
 C_UNDRLIN=$(printf '%b' '\e[4m')
 C_DEFAULT=$(printf '%b' '\e[0m')

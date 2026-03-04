@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# data
-export DATA_HOME=/media/data/data
-export DATA_FUTURE_HOME=$DATA_HOME/future
-
 # pnpm
 export PNPM_HOME=~/.local/share/pnpm
 export PATH="$PNPM_HOME:$PATH"
