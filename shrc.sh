@@ -1,7 +1,8 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 echo "$-" | grep -qP '.*i.*' || exit 0
-[ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ] && [ "$(id -u -n)" = "l" ] && startplasma-wayland 2>/dev/null && exit 0
+
+[ -f ~/.xshrc/desktop.sh ] && . ~/.xshrc/desktop.sh
 
 # shellcheck disable=SC1091
 # shellcheck disable=SC1090
@@ -33,7 +34,7 @@ __sh_conda_setup() {
     mamba="$home/mamba"
     [ -x "$conda" ] && setup=$("$conda" "shell.$sh" hook 2>/dev/null) && [ -n "$setup" ] && eval "$setup"
     [ -x "$mamba" ] && setup=$("$mamba" shell hook --shell "$sh") && [ -n "$setup" ] && eval "$setup"
-    unset home sh condaa mamba
+    unset home sh conda mamba
 }
 
 __sh_gen_prompt() {
@@ -119,7 +120,7 @@ __sh_get_app_paths() {
     )
 }
 
-__sh_conda_setup && conda deactivate > /dev/null
+__sh_conda_setup
 
 C_UNDRLIN=$(printf '%b' '\e[4m')
 C_DEFAULT=$(printf '%b' '\e[0m')
